@@ -1,0 +1,89 @@
+{
+  "organization": {
+    "s2": {
+      "query_variables": {
+        "organization_name": "works-on-my-machine-390",
+        "project_number": 2,
+        "column_count": 5,
+        "max_cards_per_column_count": 50,
+        "labels_per_issue_count": 5
+      },
+      "settings": {
+        "sprint_milestone_title": "sprint-2",
+        "sprint_start_date": "2026-01-26",
+        "sprint_end_date": "2026-02-08",
+        "excluded_issue_types": ["Acceptance Testing"],
+        "points_label": "Points: ",
+        "version": 2
+      }
+    },
+    "s3": {
+      "query_variables": {
+        "organization_name": "works-on-my-machine-390",
+        "project_number": 2,
+        "column_count": 5,
+        "max_cards_per_column_count": 50,
+        "labels_per_issue_count": 5
+      },
+      "settings": {
+        "sprint_milestone_title": "sprint-3",
+        "sprint_start_date": "2026-02-09",
+        "sprint_end_date": "2026-02-22",
+        "excluded_issue_types": ["Acceptance Testing"],
+        "points_label": "Points: ",
+        "version": 2
+      }
+    },
+    "s4": {
+      "query_variables": {
+        "organization_name": "works-on-my-machine-390",
+        "project_number": 2,
+        "column_count": 5,
+        "max_cards_per_column_count": 50,
+        "labels_per_issue_count": 5
+      },
+      "settings": {
+        "sprint_milestone_title": "sprint-4",
+        "sprint_start_date": "2026-02-23",
+        "sprint_end_date": "2026-03-08",
+        "excluded_issue_types": ["Acceptance Testing"],
+        "points_label": "Points: ",
+        "version": 2
+      }
+    },
+    "s5": {
+      "query_variables": {
+        "organization_name": "works-on-my-machine-390",
+        "project_number": 2,
+        "column_count": 5,
+        "max_cards_per_column_count": 50,
+        "labels_per_issue_count": 5
+      },
+      "settings": {
+        "sprint_milestone_title": "sprint-5",
+        "sprint_start_date": "2026-03-09",
+        "sprint_end_date": "2026-03-22",
+        "excluded_issue_types": ["Acceptance Testing"],
+        "points_label": "Points: ",
+        "version": 2
+      }
+    },
+    "s6": {
+      "query_variables": {
+        "organization_name": "works-on-my-machine-390",
+        "project_number": 2,
+        "column_count": 5,
+        "max_cards_per_column_count": 50,
+        "labels_per_issue_count": 5
+      },
+      "settings": {
+        "sprint_milestone_title": "sprint-6",
+        "sprint_start_date": "2026-03-23",
+        "sprint_end_date": "2026-04-05",
+        "excluded_issue_types": ["Acceptance Testing"],
+        "points_label": "Points: ",
+        "version": 2
+      }
+    }
+  }
+}

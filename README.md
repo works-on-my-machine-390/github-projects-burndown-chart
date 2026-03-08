@@ -21,6 +21,10 @@ The tool of choice is VSCode Copilot, run using `GPT-5.3-Codex`.
 ## New variable
 New configuration variable: `excluded_issue_types`: Chart generation will ignore these issue types. Default is `[]` (no exclusions).
 
+## Timezone fix
+
+Due to a timezone bug, issues were not being marked as closed on the correct dates + the charts required the config to specify an end date one day later than required.
+
 # Burndown Chart for GitHub Projects
 
 > [!IMPORTANT]
