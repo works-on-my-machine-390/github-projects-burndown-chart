@@ -58,6 +58,14 @@ class Config:
             or settings.get('sprint_milestone') \
             or settings.get('milestone_title')
 
+    def excluded_issue_types(self):
+        excluded_issue_types = self['settings'].get('excluded_issue_types', [])
+        if excluded_issue_types is None:
+            return []
+        if isinstance(excluded_issue_types, str):
+            return [excluded_issue_types]
+        return excluded_issue_types
+
     def __getitem__(self, key: str):
         if not hasattr(self, 'project_type'):
             raise AttributeError('No project has been set.')

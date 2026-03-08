@@ -2,18 +2,30 @@
 This repository is a fork of https://github.com/thehale/github-projects-burndown-chart.
 It includes fixes required to run the burndown chart generator for https://github.com/works-on-my-machine-390/concordia-waze.
 
+## Modifications
+
+All code modifications were made by AI tools (vibecoded).
+
+The tool of choice is VSCode Copilot, run using `GPT-5.3-Codex`.
+
 ## Updated Assumptions
 
 * You use one and only one GitHub Project Board for ALL sprints.
 * You use one and only one GitHub Milestone per sprint.
-* You use one and only one 
 * (unchanged) You use one and only one [GitHub Issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) for each of your [Sprint Backlog Items/Tasks](https://scrumguides.org/scrum-guide.html#sprint-backlog)
 * (unchanged) If you want to track points, each of your GitHub Issues has a [label](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) indicating how many [points](https://www.scrum.org/resources/scrum-glossary#:~:text=several%20ways%20such%20as-,user%20story%20points,-or%20task%20hours.%20Work) its corresponding task is worth.
     - Furthermore, all labels that indicate point values have the format `<prefix><int>`.
     - Multiple labels indicating points on the same Issue are supported.
 * (unchanged) A Sprint Backlog Task is considered [Done](https://www.scrum.org/resources/professional-scrum-developer-glossary#:~:text=D-,definition%20of%20done%3A,-a%20shared%20understanding) if its corresponding GitHub Issue is Closed.
 
+## New variable
+New configuration variable: `excluded_issue_types`: Chart generation will ignore these issue types. Default is `[]` (no exclusions).
+
 # Burndown Chart for GitHub Projects
+
+> [!IMPORTANT]
+> What follows is the original README.md. No modifications were made to it.
+
 An easy to use [burndown chart](https://www.scrum.org/resources/scrum-glossary#:~:text=B-,burn-down%20chart,-%3A%C2%A0a%20chart%20which) generator for [GitHub Project Boards](https://docs.github.com/en/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards).
 
 <!-- BADGES -->

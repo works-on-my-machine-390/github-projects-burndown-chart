@@ -24,6 +24,16 @@ class Project:
             for column in self.columns
         ]
 
+    def exclude_cards_by_issue_type(self, issue_type_name: str):
+        target_issue_type = (issue_type_name or '').strip().casefold()
+        self.columns = [
+            Column([
+                card for card in column.cards
+                if (card.issue_type_name or '').strip().casefold() != target_issue_type
+            ])
+            for column in self.columns
+        ]
+
 
 class ProjectV1(Project):
     def __init__(self, project_data):
@@ -74,11 +84,16 @@ class Card:
         self.assigned: datetime = self.__parse_assignedAt(card_data)
         self.closed: datetime = self.__parse_closedAt(card_data)
         self.milestone_title: str = self.__parse_milestone_title(card_data)
+        self.issue_type_name: str = self.__parse_issue_type_name(card_data)
         self.points = self.__parse_points(card_data)
 
     def __parse_milestone_title(self, card_data) -> str:
         milestone = card_data.get('milestone')
         return milestone.get('title') if milestone else None
+
+    def __parse_issue_type_name(self, card_data) -> str:
+        issue_type = card_data.get('issueType')
+        return issue_type.get('name') if issue_type else None
 
     def __parse_assignedAt(self, card_data) -> datetime:
         assignedAt = None

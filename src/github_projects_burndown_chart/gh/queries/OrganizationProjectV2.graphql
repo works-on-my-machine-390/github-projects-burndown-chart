@@ -24,6 +24,9 @@ query OrganizationProject($organization_name: String!, $project_number: Int!, $l
           content {
             ...on Issue {
               title
+              issueType {
+                name
+              }
               milestone {
                 title
               }

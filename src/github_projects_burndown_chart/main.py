@@ -38,6 +38,9 @@ def download_project_data(project_type: str, project_version: int) -> Project:
     if milestone_title:
         project.filter_cards_by_milestone(milestone_title)
 
+    for issue_type in config.excluded_issue_types():
+        project.exclude_cards_by_issue_type(issue_type)
+
     return project
 
 

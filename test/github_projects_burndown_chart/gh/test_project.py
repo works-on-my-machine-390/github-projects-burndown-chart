@@ -71,3 +71,22 @@ class TestProject(unittest.TestCase):
 
         self.assertEqual(1, len(project.cards))
         self.assertEqual('Sprint 2', project.cards[0].milestone_title)
+
+    def test_project_excludes_acceptance_testing_issue_type(self):
+        acceptance_testing_card = Card({
+            'createdAt': '2026-02-09T00:00:00Z',
+            'labels': {'nodes': [{'name': 'Points: 2'}]},
+            'issueType': {'name': 'Acceptance Testing'}
+        })
+        feature_card = Card({
+            'createdAt': '2026-02-10T00:00:00Z',
+            'labels': {'nodes': [{'name': 'Points: 5'}]},
+            'issueType': {'name': 'Feature'}
+        })
+        project = ProjectStub([Column([acceptance_testing_card, feature_card])])
+
+        project.exclude_cards_by_issue_type('Acceptance Testing')
+
+        self.assertEqual(1, len(project.cards))
+        self.assertEqual('Feature', project.cards[0].issue_type_name)
+        self.assertEqual(5, project.total_points)
