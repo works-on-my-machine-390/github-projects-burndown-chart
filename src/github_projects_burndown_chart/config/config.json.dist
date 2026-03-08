@@ -12,6 +12,8 @@
       "settings": {
         "sprint_start_date": "REQUIRED",
         "sprint_end_date": "REQUIRED",
+        "sprint_milestone_title": null,
+        "excluded_issue_types": [],
         "points_label": null
       }
     }
@@ -27,6 +29,8 @@
       "settings": {
         "sprint_start_date": "REQUIRED",
         "sprint_end_date": "REQUIRED",
+        "sprint_milestone_title": null,
+        "excluded_issue_types": [],
         "points_label": null
       }
     }
@@ -43,6 +47,8 @@
       "settings": {
         "sprint_start_date": "REQUIRED",
         "sprint_end_date": "REQUIRED",
+        "sprint_milestone_title": null,
+        "excluded_issue_types": [],
         "points_label": null
       }
     }
@@ -57,6 +63,8 @@
       "settings": {
         "sprint_start_date": "REQUIRED",
         "sprint_end_date": "REQUIRED",
+        "sprint_milestone_title": null,
+        "excluded_issue_types": [],
         "points_label": null
       }
     }

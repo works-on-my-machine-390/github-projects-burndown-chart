@@ -1,18 +1,19 @@
 from datetime import datetime, timedelta, timezone
 from dateutil import parser
+from dateutil import tz
 from typing import List
-
-UTC_OFFSET: timedelta = datetime.utcnow() - datetime.now()
-"""Local time + UTC_OFFSET = UTC Time"""
-
 
 def parse_to_utc(date_string: str) -> datetime:
     """
     Parse a date string to UTC time.
+
+    If the input has no timezone, interpret it in local time for that date
+    before converting to UTC.
     """
-    raw_datetime = parser.parse(date_string) + UTC_OFFSET
-    datetime_utc = raw_datetime.replace(tzinfo=timezone.utc)
-    return datetime_utc
+    raw_datetime = parser.parse(date_string)
+    if raw_datetime.tzinfo is None:
+        raw_datetime = raw_datetime.replace(tzinfo=tz.tzlocal())
+    return raw_datetime.astimezone(timezone.utc)
 
 
 def parse_to_local(datetime_utc: datetime) -> datetime:

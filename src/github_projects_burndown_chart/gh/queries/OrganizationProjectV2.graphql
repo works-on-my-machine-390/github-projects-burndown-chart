@@ -23,7 +23,20 @@ query OrganizationProject($organization_name: String!, $project_number: Int!, $l
           }
           content {
             ...on Issue {
+              __typename
+              number
               title
+              issueType {
+                name
+              }
+              assignees(first: 20) {
+                nodes {
+                  login
+                }
+              }
+              milestone {
+                title
+              }
               timelineItems(first: 20, itemTypes: [ASSIGNED_EVENT]) {
                 nodes {
                   __typename
@@ -41,7 +54,17 @@ query OrganizationProject($organization_name: String!, $project_number: Int!, $l
               }
             }
             ...on PullRequest {
+              __typename
+              number
               title
+              assignees(first: 20) {
+                nodes {
+                  login
+                }
+              }
+              milestone {
+                title
+              }
               timelineItems(first: 20, itemTypes: [ASSIGNED_EVENT]) {
                 nodes {
                   __typename

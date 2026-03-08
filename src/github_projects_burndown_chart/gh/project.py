@@ -15,6 +15,32 @@ class Project:
     def cards(self):
         return [card for column in self.columns for card in column.cards]
 
+    def filter_cards_by_milestone(self, milestone_title: str):
+        self.columns = [
+            Column([
+                card for card in column.cards
+                if card.milestone_title == milestone_title
+            ])
+            for column in self.columns
+        ]
+
+    def exclude_cards_by_issue_type(self, issue_type_name: str):
+        target_issue_type = (issue_type_name or '').strip().casefold()
+        self.columns = [
+            Column([
+                card for card in column.cards
+                if (card.issue_type_name or '').strip().casefold() != target_issue_type
+            ])
+            for column in self.columns
+        ]
+
+    def unclosed_issues_as_of(self, date: datetime):
+        return [
+            card for card in self.cards
+            if card.is_issue
+            and (not isinstance(card.closed, datetime) or card.closed > date)
+        ]
+
 
 class ProjectV1(Project):
     def __init__(self, project_data):
@@ -60,11 +86,33 @@ class Column:
 
 class Card:
     def __init__(self, card_data):
-        card_data = card_data['content'] if card_data['content'] else card_data
+        card_data = card_data.get('content') or card_data
+        self.content_type: str = card_data.get('__typename') or 'Issue'
+        self.number: int = card_data.get('number')
+        self.title: str = card_data.get('title')
+        self.assignees = self.__parse_assignees(card_data)
         self.created: datetime = self.__parse_createdAt(card_data)
         self.assigned: datetime = self.__parse_assignedAt(card_data)
         self.closed: datetime = self.__parse_closedAt(card_data)
+        self.milestone_title: str = self.__parse_milestone_title(card_data)
+        self.issue_type_name: str = self.__parse_issue_type_name(card_data)
         self.points = self.__parse_points(card_data)
+
+    @property
+    def is_issue(self):
+        return self.content_type == 'Issue'
+
+    def __parse_assignees(self, card_data):
+        assignees = card_data.get('assignees', {}).get('nodes', [])
+        return [assignee.get('login') for assignee in assignees if assignee.get('login')]
+
+    def __parse_milestone_title(self, card_data) -> str:
+        milestone = card_data.get('milestone')
+        return milestone.get('title') if milestone else None
+
+    def __parse_issue_type_name(self, card_data) -> str:
+        issue_type = card_data.get('issueType')
+        return issue_type.get('name') if issue_type else None
 
     def __parse_assignedAt(self, card_data) -> datetime:
         assignedAt = None

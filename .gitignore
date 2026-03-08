@@ -1,6 +1,7 @@
 # Local config files
 secrets.json
-config.json
+# commenting out config.json so that we can persist our config. there's no sensitive info.
+# config.json
 
 # VS Code Project Files
 .vscode
