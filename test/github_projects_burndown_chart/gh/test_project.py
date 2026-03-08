@@ -2,6 +2,7 @@ import unittest
 import os
 import sys
 import types
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', '..', '..', 'src', 'github_projects_burndown_chart')))
@@ -90,3 +91,36 @@ class TestProject(unittest.TestCase):
         self.assertEqual(1, len(project.cards))
         self.assertEqual('Feature', project.cards[0].issue_type_name)
         self.assertEqual(5, project.total_points)
+
+    def test_project_lists_unclosed_issues_as_of_date(self):
+        closed_issue = Card({
+            '__typename': 'Issue',
+            'number': 11,
+            'title': 'Done task',
+            'createdAt': '2026-02-09T00:00:00Z',
+            'closedAt': '2026-02-10T00:00:00Z',
+            'labels': {'nodes': [{'name': 'Points: 1'}]}
+        })
+        unclosed_issue = Card({
+            '__typename': 'Issue',
+            'number': 12,
+            'title': 'Open task',
+            'createdAt': '2026-02-09T00:00:00Z',
+            'labels': {'nodes': [{'name': 'Points: 1'}]},
+            'assignees': {'nodes': [{'login': 'octocat'}]}
+        })
+        open_pull_request = Card({
+            '__typename': 'PullRequest',
+            'number': 20,
+            'title': 'PR task',
+            'createdAt': '2026-02-09T00:00:00Z',
+            'labels': {'nodes': [{'name': 'Points: 1'}]}
+        })
+        project = ProjectStub([Column([closed_issue, unclosed_issue, open_pull_request])])
+
+        results = project.unclosed_issues_as_of(datetime(2026, 2, 12, tzinfo=timezone.utc))
+
+        self.assertEqual(1, len(results))
+        self.assertEqual(12, results[0].number)
+        self.assertEqual('Open task', results[0].title)
+        self.assertEqual(['octocat'], results[0].assignees)

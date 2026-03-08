@@ -1,4 +1,5 @@
 import argparse
+from datetime import timedelta
 
 from chart.burndown import *
 from config import config
@@ -83,4 +84,14 @@ if __name__ == '__main__':
         burndown_chart.generate_chart(args.filepath)
     else:
         burndown_chart.render()
+
+    sprint_end_cutoff = config.utc_sprint_end() + timedelta(hours=23, minutes=59)
+    unclosed_issues = project.unclosed_issues_as_of(sprint_end_cutoff)
+    print(f"Unclosed issues by sprint end ({str(config.utc_sprint_end())[:10]}):")
+    if not unclosed_issues:
+        print("- None")
+    for issue in unclosed_issues:
+        assignees = ', '.join(issue.assignees) if issue.assignees else 'Unassigned'
+        print(f"- #{issue.number} | {issue.title} | {assignees}")
+
     print('Done')

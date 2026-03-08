@@ -23,9 +23,16 @@ query RepositoryProject($repo_owner: String!, $repo_name: String!, $project_numb
           }
           content {
             ...on Issue {
+              __typename
+              number
               title
               issueType {
                 name
+              }
+              assignees(first: 20) {
+                nodes {
+                  login
+                }
               }
               milestone {
                 title
@@ -47,7 +54,14 @@ query RepositoryProject($repo_owner: String!, $repo_name: String!, $project_numb
               }
             }
             ...on PullRequest {
+              __typename
+              number
               title
+              assignees(first: 20) {
+                nodes {
+                  login
+                }
+              }
               milestone {
                 title
               }

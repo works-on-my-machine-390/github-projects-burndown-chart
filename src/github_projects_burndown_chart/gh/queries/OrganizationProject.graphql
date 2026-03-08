@@ -12,9 +12,16 @@ query OrganizationProject($organization_name: String!, $project_number: Int!, $c
               state
               content {
                 ... on Issue {
+                  __typename
+                  number
                   title
                   issueType {
                     name
+                  }
+                  assignees(first: 20) {
+                    nodes {
+                      login
+                    }
                   }
                   milestone {
                     title
