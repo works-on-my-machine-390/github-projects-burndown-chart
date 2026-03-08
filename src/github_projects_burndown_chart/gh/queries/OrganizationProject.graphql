@@ -13,6 +13,9 @@ query OrganizationProject($organization_name: String!, $project_number: Int!, $c
               content {
                 ... on Issue {
                   title
+                  milestone {
+                    title
+                  }
                   timelineItems(first: 20, itemTypes: [ASSIGNED_EVENT]) {
                     nodes {
                       __typename

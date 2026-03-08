@@ -15,6 +15,15 @@ class Project:
     def cards(self):
         return [card for column in self.columns for card in column.cards]
 
+    def filter_cards_by_milestone(self, milestone_title: str):
+        self.columns = [
+            Column([
+                card for card in column.cards
+                if card.milestone_title == milestone_title
+            ])
+            for column in self.columns
+        ]
+
 
 class ProjectV1(Project):
     def __init__(self, project_data):
@@ -60,11 +69,16 @@ class Column:
 
 class Card:
     def __init__(self, card_data):
-        card_data = card_data['content'] if card_data['content'] else card_data
+        card_data = card_data.get('content') or card_data
         self.created: datetime = self.__parse_createdAt(card_data)
         self.assigned: datetime = self.__parse_assignedAt(card_data)
         self.closed: datetime = self.__parse_closedAt(card_data)
+        self.milestone_title: str = self.__parse_milestone_title(card_data)
         self.points = self.__parse_points(card_data)
+
+    def __parse_milestone_title(self, card_data) -> str:
+        milestone = card_data.get('milestone')
+        return milestone.get('title') if milestone else None
 
     def __parse_assignedAt(self, card_data) -> datetime:
         assignedAt = None

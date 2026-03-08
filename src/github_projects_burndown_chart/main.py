@@ -25,19 +25,27 @@ def parse_cli_args():
 
 
 def download_project_data(project_type: str, project_version: int) -> Project:
+    project = None
     if project_version == 2:
-        return get_project_v2(project_type)
+        project = get_project_v2(project_type)
 
     if project_type == 'repository':
-        return get_repository_project()
+        project = project or get_repository_project()
     elif project_type == 'organization':
-        return get_organization_project()
+        project = project or get_organization_project()
+
+    milestone_title = config.sprint_milestone_title()
+    if milestone_title:
+        project.filter_cards_by_milestone(milestone_title)
+
+    return project
 
 
 def prepare_chart_data(stats: ProjectStats):
     color = colors()
+    sprint_name = config.sprint_milestone_title() or stats.project.name
     data = BurndownChartData(
-        sprint_name=stats.project.name,
+        sprint_name=sprint_name,
         utc_chart_start=config.utc_sprint_start(),
         utc_chart_end=config.utc_chart_end() or config.utc_sprint_end(),
         utc_sprint_start=config.utc_sprint_start(),

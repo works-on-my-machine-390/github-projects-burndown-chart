@@ -51,6 +51,13 @@ class Config:
     def utc_chart_end(self) -> datetime:
         return self.__get_date('chart_end_date')
 
+    def sprint_milestone_title(self) -> str:
+        settings = self['settings']
+        # Support legacy/informal key names while keeping one canonical key.
+        return settings.get('sprint_milestone_title') \
+            or settings.get('sprint_milestone') \
+            or settings.get('milestone_title')
+
     def __getitem__(self, key: str):
         if not hasattr(self, 'project_type'):
             raise AttributeError('No project has been set.')

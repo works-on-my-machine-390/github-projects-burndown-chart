@@ -14,6 +14,9 @@ query RepositoryProject($repo_owner: String!, $repo_name: String!, $project_numb
               content {
                 ... on Issue {
                   title
+                  milestone {
+                    title
+                  }
                   timelineItems(first: 20, itemTypes: [ASSIGNED_EVENT]) {
                     nodes {
                       __typename
