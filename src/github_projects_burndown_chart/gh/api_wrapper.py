@@ -28,6 +28,12 @@ def get_repository_project() -> Project:
     query_variables = config['query_variables']
     query_response = gh_api_query(RepositoryProject, query_variables)
     project_data = query_response['data']['repository']['project']
+    if not project_data:
+        __logger.critical(
+            'GitHub did not return a Repository Project (v1) for the configured repo/project number.')
+        __logger.critical(
+            'If this is a GitHub Projects v2 board, set `settings.version` to `2` in config.json.')
+        exit(1)
     return ProjectV1(project_data)
 
 
@@ -35,6 +41,12 @@ def get_organization_project() -> Project:
     query_variables = config['query_variables']
     query_response = gh_api_query(OrganizationProject, query_variables)
     project_data = query_response['data']['organization']['project']
+    if not project_data:
+        __logger.critical(
+            'GitHub did not return an Organization Project (v1) for the configured org/project number.')
+        __logger.critical(
+            'If this is a GitHub Projects v2 board, set `settings.version` to `2` in config.json.')
+        exit(1)
     return ProjectV1(project_data)
 
 
@@ -43,6 +55,12 @@ def get_project_v2(project_type) -> Project:
     query_variables = config['query_variables'].copy()
     query_response = gh_api_query(query, query_variables)
     project_data = query_response['data'][project_type]['projectV2']
+    if not project_data:
+        __logger.critical(
+            f"GitHub did not return a {project_type} Project v2 for the configured project_number.")
+        __logger.critical(
+            'Check `query_variables` in config.json (organization_name/repo_name and project_number).')
+        exit(1)
     page_info = project_data['items']['pageInfo']
     while page_info['hasNextPage']:
         query_variables['cursor'] = page_info['endCursor']
