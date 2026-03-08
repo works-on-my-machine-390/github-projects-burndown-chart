@@ -1,3 +1,7 @@
+# Fork
+This repository is a fork of https://github.com/thehale/github-projects-burndown-chart.
+It includes fixes required to run the burndown chart generator for https://github.com/works-on-my-machine-390/concordia-waze.
+
 # Burndown Chart for GitHub Projects
 An easy to use [burndown chart](https://www.scrum.org/resources/scrum-glossary#:~:text=B-,burn-down%20chart,-%3A%C2%A0a%20chart%20which) generator for [GitHub Project Boards](https://docs.github.com/en/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards).
 
